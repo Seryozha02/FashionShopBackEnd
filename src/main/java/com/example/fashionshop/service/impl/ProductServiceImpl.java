@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-
 
     @Autowired
     private ProductRepository productRepository;
@@ -28,6 +30,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product create(Product product) {
         return productRepository.save(product);
+    }
+
+    /***
+     *
+     * @return all data from DB, if there is not any data will return empty List.
+     */
+    @Override
+    public List<Product> getAll() {
+        List<Product> all = productRepository.findAll();
+        Collections.reverse(all);
+        return all;
     }
 
     /***
@@ -47,21 +60,10 @@ public class ProductServiceImpl implements ProductService {
 
     /***
      *
-     * @return all data from DB, if there is not any data will return empty List.
-     */
-    @Override
-    public List<Product> getAll() {
-        return productRepository
-                .findAll();
-    }
-
-    /***
-     *
      * @param id is related to product which need to update
      * @param product is changed data
      * @returns just updated product
      */
-
     @Transactional
     @Override
     public Product update(long id, Product product) {
@@ -89,8 +91,6 @@ public class ProductServiceImpl implements ProductService {
     public void delete(long id) {
         productRepository.deleteById(id);
     }
-
-
 }
 
 

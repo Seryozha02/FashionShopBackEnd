@@ -20,5 +20,4 @@ public class Stock {
     private Boolean isAvailable;
 
     private Integer count;
-
 }

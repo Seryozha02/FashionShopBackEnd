@@ -12,7 +12,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(
             nativeQuery = true,
-            value = "SELECT * FROM user_order WHERE user_id=:userId"
+            value = "SELECT * FROM user_order WHERE user_id=:userId ORDER BY date DESC"
     )
     Optional<List<Order>> getAllByUserId(@Param("userId") String userId);
 }
+

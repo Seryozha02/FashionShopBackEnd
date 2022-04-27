@@ -41,6 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isExists(String id) {
+        return userRepository.findById(id).isPresent();
+
+    }
+
+    @Override
     public User getByIdForSingUp(String id) {
         return userRepository.getById(id);
     }
